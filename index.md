@@ -1,37 +1,44 @@
-## Welcome to GitHub Pages
+# WalkThrough - Bandit Game
 
-You can use the [editor on GitHub](https://github.com/Siddharthh06/Bandit/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Step by step method to solve the Bandit wargame.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+* First connect to server by using the command
+``` 
+ssh bandit0@bandit.labs.overthewire.org -p 2220 
 ```
+> Password : bandit0
+### Level 0 -> Level 1
+---
+The password is stored in a file called readme in the home directory.
+```bash
+bandit0@bandit:~$ ls
+readme
+bandit0@bandit:~$ cat readme
+boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+bandit0@bandit:~$
+```
+*ls* is used to list the directories present.\
+*cat* command is used to view the contents of a file, here, contents of readme file.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+### Level 1 -> Level 2
+---
+To go the next level use
+```
+ssh bandit1@localhost
+```
+The password is stored in a file named **-** in the home directory. We cannot use cat - to directly view the content of the file and so we will use `cat ./-`
+```bash
+bandit1@bandit:~$ ls
+-
+bandit1@bandit:~$ cat ./-
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+```
+*cat ./-* is used as - (hyphen) is considered as stdin/stout by cat command. We use ./ to refer to file address.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Siddharthh06/Bandit/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Level 2 -> Level 3
+---
+To go the next level use
+```
+ssh bandit2@localhost
+```
