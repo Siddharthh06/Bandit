@@ -1,2 +1,2 @@
 # Bandit - Wargame OverTheWire
-### Level 0 to Level 1
+### Level 0 -> Level 1
