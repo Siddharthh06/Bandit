@@ -2,7 +2,7 @@
 
 Step by step method to solve the Bandit wargame.
 
-* First connect to server by using the command
+First connect to server by using the command
 ``` 
 ssh bandit0@bandit.labs.overthewire.org -p 2220 
 ```
