@@ -6,7 +6,7 @@ First connect to server by using the command
 ``` 
 ssh bandit0@bandit.labs.overthewire.org -p 2220 
 ```
-Password : bandit0
+`Password : bandit0`
 ### Level 0 -> Level 1
 ---
 The password is stored in a file called readme in the home directory.
