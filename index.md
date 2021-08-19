@@ -15,7 +15,6 @@ bandit0@bandit:~$ ls
 readme
 bandit0@bandit:~$ cat readme
 boJ9jbbUNNfktd78OOpsqOltutMc3MY1
-bandit0@bandit:~$
 ```
 *ls* is used to list the directories present.\
 *cat* command is used to view the contents of a file, here, contents of readme file.
