@@ -20,6 +20,7 @@ Bandit is wargame hosted by the OverTheWire organisation. It has 34 levels. You 
 - [Level 14-15](https://overthewire.org/wargames/bandit/bandit15.html)
 - [level 15-16](https://overthewire.org/wargames/bandit/bandit16.html)
 - [level 16-17](https://overthewire.org/wargames/bandit/bandit17.html)
+
 ## Objective of the game
 Find the password file. It will give us access to the next level.
 
@@ -103,7 +104,7 @@ We run ls command with -al parameter. It lists all files including the hidden on
 ---
 To go the next level use
 ```
-ssh bandit3@localhost
+ssh bandit4@localhost
 ```
 The password is stored in a only human-readable file in the inhere directory
 ```bash
@@ -127,3 +128,10 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 ```
 
 Resources: [Geeksforgeeks - file command in linux](https://www.geeksforgeeks.org/file-command-in-linux-with-examples/)
+
+### Level 4 -> Level 5
+---
+To go the next level use
+```
+ssh bandit5@localhost
+``
