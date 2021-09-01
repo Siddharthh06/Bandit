@@ -129,9 +129,13 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
 Resources: [Geeksforgeeks - file command in linux](https://www.geeksforgeeks.org/file-command-in-linux-with-examples/)
 
-### Level 4 -> Level 5
+### Level 5 -> Level 6
 ---
 To go the next level use
 ```
 ssh bandit5@localhost
-``
+```
+
+```bash
+
+```
