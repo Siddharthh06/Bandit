@@ -398,3 +398,6 @@ bandit11@bandit:~$ cat data.txt | tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’
 The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 ```
 Resource: https://www.chmag.in/articles/momsguide/decoding-rot-using-the-echo-and-tr-commands-in-your-linux-terminal/
+
+Next Level:
+`The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL`
