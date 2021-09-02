@@ -21,7 +21,7 @@ Bandit is wargame hosted by the OverTheWire organisation. It has 34 levels. You 
 - [Level 15-16](https://overthewire.org/wargames/bandit/bandit16.html)
 - [Level 16-17](https://overthewire.org/wargames/bandit/bandit17.html)
 - [Level 17-18](https://overthewire.org/wargames/bandit/bandit18.html)
----
+
 ## Objective of the game
 Find the password file. It will give us access to the next level.
 ___
