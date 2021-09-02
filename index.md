@@ -21,10 +21,11 @@ Bandit is wargame hosted by the OverTheWire organisation. It has 34 levels. You 
 - [Level 15-16](https://overthewire.org/wargames/bandit/bandit16.html)
 - [Level 16-17](https://overthewire.org/wargames/bandit/bandit17.html)
 - [Level 17-18](https://overthewire.org/wargames/bandit/bandit18.html)
+---
 ## Objective of the game
 Find the password file. It will give us access to the next level.
-
-First connect to server by using the command
+___
+##### First connect to server by using the command
 ``` 
 ssh bandit0@bandit.labs.overthewire.org -p 2220 
 ```
@@ -217,7 +218,7 @@ find: ‘/var/cache/ldconfig’: Permission denied
 bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
 HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 ```
-To use find on the entire server we use *find /*
+To use find on the entire server we use `find /`
 
 ### Level 7 -> Lever 8
 ---
@@ -232,7 +233,7 @@ data.txt
 bandit7@bandit:~$ grep -w millionth ./data.txt
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ```
-We are using grep command. Grep is a Linux / Unix command-line tool used to search for a string of characters in a specified file. 
+We are using grep command. Grep is a Linux / Unix command-line tool used to search for a string of characters in a specified file. Although we only searched for the word milllionth, we got the whole line as output as grep gives the whole line where the match is found as output.
 ```bash
 bandit7@bandit:~$ cat data.txt | grep millionth
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
@@ -353,3 +354,47 @@ bandit8@bandit:~$ sort data.txt | uniq -c
 ```
 So, the password is `UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR`.\
 We used two command here that are connected unix pipe. 
+
+### Level 9 -> Level 10
+To go to the next level
+```
+ssh bandit9@localhost
+```
+The password is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+```bash
+bandit9@bandit:~$ ls
+data.txt
+bandit9@bandit:~$ cat data.txt | strings | grep ==
+========== the*2i"4
+========== password
+Z)========== is
+&========== truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+```
+First we use cat to view the contents of the file data.txt and serve as input for the strings command. We use the unix pipe (|) as it sends output of one command as input of the other. Then we use strings command.
+- String: Display printable strings in [file(s)] (stdin by default)
+
+This converts the text in the file in strings format. Then we use grep to find the line with more than 1 '=' character as it is given that the password is preceeded by several '=' characters.\
+
+### Level 10 -> Level 11
+To go to the next level
+```
+ssh bandit10@localhost
+```
+The password is stored in the file data.txt, which contains base64 encoded data
+```bash
+bandit10@bandit:~$ cat data.txt | base64 -d
+The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+```
+Using cat to view the content of the file and use it as input for the base64 command using unix pipe (|). `base64 -d` is the command to decode data
+
+### level 11 -> Level 12
+To go to the next level 
+```
+ssh bandit11@localhost
+```
+The password is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions (ROT 13 cipher)
+```bash
+bandit11@bandit:~$ cat data.txt | tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+```
+Resource: https://www.chmag.in/articles/momsguide/decoding-rot-using-the-echo-and-tr-commands-in-your-linux-terminal/
