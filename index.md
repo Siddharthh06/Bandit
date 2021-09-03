@@ -397,7 +397,70 @@ The password is stored in the file data.txt, where all lowercase (a-z) and upper
 bandit11@bandit:~$ cat data.txt | tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’
 The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 ```
+the command `tr` means translate. Here we view the file using `cat` which serves as an input for the tr command. Using `man tr` we get the description of `tr` as Translate, squeeze, and/or delete characters from standard input, writing to standard output. The command `tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’` is basically saying translate/transform the range of characters  n->m to a->z   but since n-m is a bit vague so it is written as n-za-m (which is the english alphabets if 13th letter becomes 1st letter) and it also it is done for both small and capital letters.\
 Resource: https://www.chmag.in/articles/momsguide/decoding-rot-using-the-echo-and-tr-commands-in-your-linux-terminal/
 
+## Level 12 -> Level 13
+To go to the next level
+```
+ssh bandit12@localhost
+```
+The password is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed.
+```bash
+bandit12@bandit:~$ ls
+data.txt
+bandit12@bandit:~$ mkdir /tmp/huehue
+bandit12@bandit:~$ cp data.txt /tmp/huehue
+bandit12@bandit:~$ cd /tmp/huehue
+bandit12@bandit:/tmp/huehue$ xxd -r data.txt data1
+bandit12@bandit:/tmp/huehue$ ls
+data1  data.txt
+bandit12@bandit:/tmp/huehue$ file data1
+data1: gzip compressed data, was "data2.bin", last modified: Thu May  7 18:14:30 2020, max compression, from Unix
+bandit12@bandit:/tmp/huehue$ mv data1 data2.gz
+bandit12@bandit:/tmp/huehue$ gzip -d data2.gz
+bandit12@bandit:/tmp/huehue$ ls
+data2  data.txt
+bandit12@bandit:/tmp/huehue$ file data2
+data2: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/huehue$ mv data2 data3.bz2
+bandit12@bandit:/tmp/huehue$ bzip2 -d data3.bz2
+bandit12@bandit:/tmp/huehue$ file data3
+data3: gzip compressed data, was "data4.bin", last modified: Thu May  7 18:14:30 2020, max compression, from Unix
+bandit12@bandit:/tmp/huehue$ mv data3 data4.gz
+bandit12@bandit:/tmp/huehue$ gzip -d data4.gz
+bandit12@bandit:/tmp/huehue$ ls
+data4  data.txt
+bandit12@bandit:/tmp/huehue$ file data4
+data4: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/huehue$ mv data4 data5.tar
+bandit12@bandit:/tmp/huehue$ tar -xvf data5.tar
+data5.bin
+bandit12@bandit:/tmp/huehue$ file data5.bin
+data5.bin: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/huehue$ mv data5.bin data6.tar
+bandit12@bandit:/tmp/huehue$ tar -xvf data6.tar
+data6.bin
+bandit12@bandit:/tmp/huehue$ file data6.bin
+data6.bin: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/huehue$ mv data6.bin data7.bz2
+bandit12@bandit:/tmp/huehue$ bzip2 -d data7.bz2
+bandit12@bandit:/tmp/huehue$ ls
+data5.tar  data6.tar  data7  data.txt
+bandit12@bandit:/tmp/huehue$ file data7
+data7: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/huehue$ mv data7 data8.tar
+bandit12@bandit:/tmp/huehue$ tar -xvf data8.tar
+data8.bin
+bandit12@bandit:/tmp/huehue$ file data8.bin
+data8.bin: gzip compressed data, was "data9.bin", last modified: Thu May  7 18:14:30 2020, max compression, from Unix
+bandit12@bandit:/tmp/huehue$ mv data8.bin data9.gz
+bandit12@bandit:/tmp/huehue$ gzip -d data9.gz
+bandit12@bandit:/tmp/huehue$ file data9
+data9: ASCII text
+bandit12@bandit:/tmp/huehue$ cat data9
+The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+```
+Looking at a hex dump of data is usually done in the context of reverse engineering. This level needs to reverse hex dump and then decompress the file to find out the password. Above you will find use of `tar` commmand. GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive. In the `tar -xvf` command, -x extracts files from a archive, -v gives verbose output and -f use the particular file mentioned after the command. `xxd` command creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form (`xxd -r`). `cp` command is used to copy files and directories. Whne we use the command `cp data.txt /tmp/huehue` we copy the file data.txt to the directory `/tmp/huehue`. When you do a `cat` command on data.txt, you will see a hex dump as output. To reverse the hex dump and save the result in another file we use the command `xxd -r data.txt data1`. `mv` command 
 Next Level:
 `The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL`
