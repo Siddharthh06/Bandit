@@ -400,7 +400,7 @@ The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 the command `tr` means translate. Here we view the file using `cat` which serves as an input for the tr command. Using `man tr` we get the description of `tr` as Translate, squeeze, and/or delete characters from standard input, writing to standard output. The command `tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’` is basically saying translate/transform the range of characters  n->m to a->z   but since n-m is a bit vague so it is written as n-za-m (which is the english alphabets if 13th letter becomes 1st letter) and it also it is done for both small and capital letters.\
 Resource: https://www.chmag.in/articles/momsguide/decoding-rot-using-the-echo-and-tr-commands-in-your-linux-terminal/
 
-## Level 12 -> Level 13
+### Level 12 -> Level 13
 To go to the next level
 ```
 ssh bandit12@localhost
@@ -464,3 +464,21 @@ The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
 Looking at a hex dump of data is usually done in the context of reverse engineering. This level needs to reverse hex dump and then decompress the file to find out the password. Above you will find use of `tar` commmand. GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive. In the `tar -xvf` command, -x extracts files from a archive, -v gives verbose output and -f use the particular file mentioned after the command. `xxd` command creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form (`xxd -r`). `cp` command is used to copy files and directories. Whne we use the command `cp data.txt /tmp/huehue` we copy the file data.txt to the directory `/tmp/huehue`. When you do a `cat` command on data.txt, you will see a hex dump as output. To reverse the hex dump and save the result in another file we use the command `xxd -r data.txt data1`. `mv` command 
 Next Level:
 `The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL`
+
+### Level 13 -> Level 14
+To go to the next level
+```
+ssh bandit14@localhost
+```
+The password is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. 
+```bash
+bandit13@bandit:~$ ssh bandit14@localhost -i sshkey.private
+Could not create directory '/home/bandit13/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+```
+`-i` is used to identify files\
+We use the ssh command to go the next level.
+
+### Level 14 -> Level 15
