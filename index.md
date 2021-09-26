@@ -21,6 +21,10 @@ Bandit is wargame hosted by the OverTheWire organisation. It has 34 levels. You 
 - [Level 15-16](https://overthewire.org/wargames/bandit/bandit16.html)
 - [Level 16-17](https://overthewire.org/wargames/bandit/bandit17.html)
 - [Level 17-18](https://overthewire.org/wargames/bandit/bandit18.html)
+- [Level 18-19](https://overthewire.org/wargames/bandit/bandit19.html)
+- [Level 19-20](https://overthewire.org/wargames/bandit/bandit20.html)
+- [Level 20-21](https://overthewire.org/wargames/bandit/bandit21.html)
+- [Level 21-22](https://overthewire.org/wargames/bandit/bandit22.html)
 
 ## Objective of the game
 Find the password file. It will give us access to the next level.
@@ -468,7 +472,7 @@ Next Level:
 ### Level 13 -> Level 14
 To go to the next level
 ```
-ssh bandit14@localhost
+ssh bandit13@localhost
 ```
 The password is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. 
 ```bash
