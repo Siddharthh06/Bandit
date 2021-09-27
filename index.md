@@ -37,7 +37,7 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220
 ### Level 0 -> Level 1
 ---
 The password is stored in a file called readme in the home directory.
-```bash
+```
 bandit0@bandit:~$ ls
 readme
 bandit0@bandit:~$ cat readme
@@ -54,7 +54,7 @@ To go the next level use
 ssh bandit1@localhost
 ```
 The password is stored in a file named **-** in the home directory. We cannot use cat - to directly view the content of the file and so we will use `cat ./-`
-```bash
+```
 bandit1@bandit:~$ ls
 -
 bandit1@bandit:~$ cat ./-
@@ -70,7 +70,7 @@ ssh bandit2@localhost
 ```
 The password is stored in a file called spaces in the filemname\
 We cannot access files with spaces in their name directly by using cat
-```bash
+```
 bandit2@bandit:~$ ls
 spaces in this filename
 bandit2@bandit:~$ cat "spaces in this filename"
@@ -78,7 +78,7 @@ UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 ```
 We used apostrophe with the file name as terminal considers spaces as null.
 Another approach is using backslash before using space in the cat command
-```bash
+```
 bandit2@bandit:~$ cat spaces\ in\ this\ filename
 UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 ```
@@ -90,7 +90,7 @@ To go the next level use
 ssh bandit3@localhost
 ```
 The password is stored in a hidden file in the inhere directory
-```bash
+```
 bandit3@bandit:~$ ls
 inhere
 bandit3@bandit:~$ cd inhere
@@ -112,7 +112,7 @@ To go the next level use
 ssh bandit4@localhost
 ```
 The password is stored in a only human-readable file in the inhere directory
-```bash
+```
 bandit4@bandit:~$ ls
 inhere
 bandit4@bandit:~$ cd inhere
@@ -140,7 +140,7 @@ To go the next level use
 ssh bandit5@localhost
 ```
 The password is stroed in the inhere directory which human readable, 1033 bytes in size and not executable
-```bash
+```
 bandit5@bandit:~$ ls
 inhere
 bandit5@bandit:~$ cd inhere
@@ -166,7 +166,7 @@ The password is stored somewhere on the server having properties:
 - owned y group bandit6
 - 33 bytes in size
 
-```bash
+```
 bandit6@bandit:~$ find / -user bandit7 -size 33c
 find: ‘/root’: Permission denied
 find: ‘/home/bandit28-git’: Permission denied
@@ -231,14 +231,14 @@ To go to the next level
 ssh bandit7@localhost
 ```
 The password is stored in a file named data.txt next to the word millionth.
-```bash
+```
 bandit7@bandit:~$ ls
 data.txt
 bandit7@bandit:~$ grep -w millionth ./data.txt
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ```
 We are using grep command. Grep is a Linux / Unix command-line tool used to search for a string of characters in a specified file. Although we only searched for the word milllionth, we got the whole line as output as grep gives the whole line where the match is found as output.
-```bash
+```
 bandit7@bandit:~$ cat data.txt | grep millionth
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ```
@@ -250,7 +250,7 @@ To go to the next level
 ssh bandit8@localhost
 ```
 The password is stored in the file data.txt and is the only line that occurs only once
-```bash
+```
 bandit8@bandit:~$ ls
 data.txt
 bandit8@bandit:~$ sort data.txt | uniq -c
@@ -365,7 +365,7 @@ To go to the next level
 ssh bandit9@localhost
 ```
 The password is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
-```bash
+```
 bandit9@bandit:~$ ls
 data.txt
 bandit9@bandit:~$ cat data.txt | strings | grep ==
@@ -385,7 +385,7 @@ To go to the next level
 ssh bandit10@localhost
 ```
 The password is stored in the file data.txt, which contains base64 encoded data
-```bash
+```
 bandit10@bandit:~$ cat data.txt | base64 -d
 The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 ```
@@ -397,7 +397,7 @@ To go to the next level
 ssh bandit11@localhost
 ```
 The password is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions (ROT 13 cipher)
-```bash
+```
 bandit11@bandit:~$ cat data.txt | tr ‘n-za-mN-ZA-M’ ‘a-zA-Z’
 The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 ```
@@ -410,7 +410,7 @@ To go to the next level
 ssh bandit12@localhost
 ```
 The password is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed.
-```bash
+```
 bandit12@bandit:~$ ls
 data.txt
 bandit12@bandit:~$ mkdir /tmp/huehue
@@ -475,7 +475,7 @@ To go to the next level
 ssh bandit13@localhost
 ```
 The password is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. 
-```bash
+```
 bandit13@bandit:~$ ssh bandit14@localhost -i sshkey.private
 Could not create directory '/home/bandit13/.ssh'.
 The authenticity of host 'localhost (127.0.0.1)' can't be established.
@@ -486,3 +486,272 @@ Are you sure you want to continue connecting (yes/no)? yes
 We use the ssh command to go the next level.
 
 ### Level 14 -> Level 15
+To go to the next level
+```
+ssh bandit14@localhost
+```
+The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+```
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+bandit14@bandit:~$ telnet localhost 30000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+Connection closed by foreign host.
+```
+To find the flag, we first need to find the password for the current level. The password is stored in the /etc directory since it is the directory where the configuration files are saved.\
+To read more about directory structure in linux refer [this](https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/)\
+Next we use telnet to connect to the localhost at the port 30000 using the command `telnet localhost 30000`\
+To understand the basics of telnet, refer [this](https://www.youtube.com/watch?v=tZop-zjYkrU) or [Linux telnel command](https://www.javatpoint.com/linux-telnet-command)\
+
+### Level 15 -> Level 16
+To go to the next level
+```
+ssh bandit15@localhost
+```
+The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption.
+```
+bandit15@bandit:~$ openssl s_client -connect localhost:30001
+CONNECTED(00000003)
+depth=0 CN = localhost
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = localhost
+verify return:1
+---
+Certificate chain
+ 0 s:/CN=localhost
+   i:/CN=localhost
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIICBjCCAW+gAwIBAgIEHxhZ+zANBgkqhkiG9w0BAQUFADAUMRIwEAYDVQQDDAls
+b2NhbGhvc3QwHhcNMjEwODA1MjEyMjEzWhcNMjIwODA1MjEyMjEzWjAUMRIwEAYD
+VQQDDAlsb2NhbGhvc3QwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALqNmx6R
+csRsPgzRcRsq5oQ4BC9AT/Yu473WbK4SRjHOWwuA4Oqk9w8SLKYZ39FrDEnXSZJw
+xqKPR0AH72+l7Itv7X1H07VbeMTQoJVm6NsJm3cuyyxjRwfaIOUFsRtQQyvQlmw7
+3CgTbd3wEk1CD+6jlksJj801Vd0uvZh1VVERAgMBAAGjZTBjMBQGA1UdEQQNMAuC
+CWxvY2FsaG9zdDBLBglghkgBhvhCAQ0EPhY8QXV0b21hdGljYWxseSBnZW5lcmF0
+ZWQgYnkgTmNhdC4gU2VlIGh0dHBzOi8vbm1hcC5vcmcvbmNhdC8uMA0GCSqGSIb3
+DQEBBQUAA4GBADjhbe3bTnDWsS4xt8FFg7PJIqNAxF6QjP+7xzJ4yMvWtPP6tVXo
+F7SNI52juwH0nFDyM9KOrM/AknWqCYF+yfz6bLD7MaKZ+Kg3DiLaoVJOrVg6Y02+
+0vq1rLsqGko5wamCFamx7X9CtFsV0WQjZdA53Na/VwehtlFpf/p20VAi
+-----END CERTIFICATE-----
+subject=/CN=localhost
+issuer=/CN=localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA512
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1019 bytes and written 269 bytes
+Verification error: self signed certificate
+---
+New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Server public key is 1024 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: 8C9B89A58FB05A841FC0BA4D42024567FCAFABECC36A28FC9887C285274845BE
+    Session-ID-ctx: 
+    Master-Key: 1BB7EF11284E6DDD69427BA9535DE954EA6F929082166C5A8CF679DCE9772B15BF2B09873675B23CBDBBE20251BDD200
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 3a a9 fe 3b 12 a1 ed 2b-8d a6 cf aa 23 c9 12 88   :..;...+....#...
+    0010 - 0c 2f 32 07 e4 e6 75 34-3e 85 40 8a 32 cd 5c b1   ./2...u4>.@.2.\.
+    0020 - 31 c6 74 04 e5 3e cd 64-55 2d 9b f6 4c 2d f3 9e   1.t..>.dU-..L-..
+    0030 - db 1c fc 28 3f 7d 4c 0f-c5 15 01 44 69 b7 b0 ae   ...(?}L....Di...
+    0040 - 5f 3d 1e 9e 04 d0 2c 36-5b 34 75 77 dc 89 db 70   _=....,6[4uw...p
+    0050 - 02 b7 53 b5 6e 15 3b de-a5 e9 46 b7 50 1e e1 f0   ..S.n.;...F.P...
+    0060 - 88 0e ec 75 45 51 d8 72-de 6f 94 33 6a 83 38 91   ...uEQ.r.o.3j.8.
+    0070 - fe c8 c5 c7 7a 7b 01 7a-be d0 bf 26 0f b2 ec 47   ....z{.z...&...G
+    0080 - ab 3b f4 28 31 71 58 61-2e f8 78 7f d1 7f c3 1e   .;.(1qXa..x.....
+    0090 - a9 11 e5 77 21 60 67 2f-ed 89 0c 71 54 20 5d a3   ...w!`g/...qT ].
+
+    Start Time: 1632766903
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+    Extended master secret: yes
+---
+BfMYroe26WYalil77FoDi9qh59eK5xNr         
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd
+
+closed
+```
+We will use the `openssl` command to connect as we have to connect using ssl encryption. 
+
+### Level 16 -> Level 17
+To go to the next level
+```
+ssh bandit16@localhost
+```
+The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+```
+bandit16@bandit:~$ nmap -A localhost -p 31000-32000
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2021-09-27 20:27 CEST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00022s latency).
+Not shown: 996 closed ports
+PORT      STATE SERVICE     VERSION
+31046/tcp open  echo
+31518/tcp open  ssl/echo
+| ssl-cert: Subject: commonName=localhost
+| Subject Alternative Name: DNS:localhost
+| Not valid before: 2021-08-05T21:23:01
+|_Not valid after:  2022-08-05T21:23:01
+|_ssl-date: TLS randomness does not represent time
+31691/tcp open  echo
+31790/tcp open  ssl/unknown
+| fingerprint-strings: 
+|   FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, Kerberos, LDAPSearchReq, LPDString, RTSPRequest, SIPOptions, SSLSessionReq, TLSSessionReq: 
+|_    Wrong! Please enter the correct current password
+| ssl-cert: Subject: commonName=localhost
+| Subject Alternative Name: DNS:localhost
+| Not valid before: 2021-08-05T21:23:01
+|_Not valid after:  2022-08-05T21:23:01
+|_ssl-date: TLS randomness does not represent time
+31960/tcp open  echo
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port31790-TCP:V=7.40%T=SSL%I=7%D=9/27%Time=61520D11%P=x86_64-pc-linux-g
+SF:nu%r(GenericLines,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20cu
+SF:rrent\x20password\n")%r(GetRequest,31,"Wrong!\x20Please\x20enter\x20the
+SF:\x20correct\x20current\x20password\n")%r(HTTPOptions,31,"Wrong!\x20Plea
+SF:se\x20enter\x20the\x20correct\x20current\x20password\n")%r(RTSPRequest,
+SF:31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20password\
+SF:n")%r(Help,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x
+SF:20password\n")%r(SSLSessionReq,31,"Wrong!\x20Please\x20enter\x20the\x20
+SF:correct\x20current\x20password\n")%r(TLSSessionReq,31,"Wrong!\x20Please
+SF:\x20enter\x20the\x20correct\x20current\x20password\n")%r(Kerberos,31,"W
+SF:rong!\x20Please\x20enter\x20the\x20correct\x20current\x20password\n")%r
+SF:(FourOhFourRequest,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20c
+SF:urrent\x20password\n")%r(LPDString,31,"Wrong!\x20Please\x20enter\x20the
+SF:\x20correct\x20current\x20password\n")%r(LDAPSearchReq,31,"Wrong!\x20Pl
+SF:ease\x20enter\x20the\x20correct\x20current\x20password\n")%r(SIPOptions
+SF:,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20password
+SF:\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 90.01 seconds
+bandit16@bandit:~$ openssl s_client -connect localhost:31790
+CONNECTED(00000003)
+depth=0 CN = localhost
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = localhost
+verify return:1
+---
+Certificate chain
+ 0 s:/CN=localhost
+   i:/CN=localhost
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIICBjCCAW+gAwIBAgIEatsK7TANBgkqhkiG9w0BAQUFADAUMRIwEAYDVQQDDAls
+b2NhbGhvc3QwHhcNMjEwODA1MjEyMzAxWhcNMjIwODA1MjEyMzAxWjAUMRIwEAYD
+VQQDDAlsb2NhbGhvc3QwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALbshxNY
+mdJ/7RpASCHk+XULoBymcRoKY9tPU25zhhPmrFAyv0HNXG/GqPjOxI4MHG627HOf
+b00a/ikeDUTVdCiDXhungyUx6W07H3uiHHbfNLs1QGl2GPdBVA+z5DZcNsWJ1QB5
+888HEzp8YNWyeHnP+5gy5LqlX5hUkF1eu6C1AgMBAAGjZTBjMBQGA1UdEQQNMAuC
+CWxvY2FsaG9zdDBLBglghkgBhvhCAQ0EPhY8QXV0b21hdGljYWxseSBnZW5lcmF0
+ZWQgYnkgTmNhdC4gU2VlIGh0dHBzOi8vbm1hcC5vcmcvbmNhdC8uMA0GCSqGSIb3
+DQEBBQUAA4GBABVCD/dhWpgN9KC5Eb6hd9ToreRhof44OQaHalJtsayPBBMTK3Lp
+KC88rNVJW+cX0z+eUe6en0RIvU56dLNT+zm9cbDvCV1cumz4++nauWes/11eA5aG
+2NNgKQHYvT+bOfo3lhOQNwtzpO4MX1sGMjO4dlS4AmxTdjz0UVUPLamk
+-----END CERTIFICATE-----
+subject=/CN=localhost
+issuer=/CN=localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA512
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1019 bytes and written 269 bytes
+Verification error: self signed certificate
+---
+New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Server public key is 1024 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: B0400E1CBE2CA57B65DD3FBE1749A7BE18B8A10B6E9DC28A4DD535EA67B1E141
+    Session-ID-ctx: 
+    Master-Key: C4F0F55E60F05F5DE1A552A3D7B91A7C38E85A19279186BCAC4A83CDAF17C7493A3BAC1A93831AD7F8050647746FE8B7
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 30 d5 a9 3d 7d a2 f1 16-f5 b3 32 79 c1 92 42 1a   0..=}.....2y..B.
+    0010 - b8 74 ce 70 01 f2 1b 3c-f8 17 06 8c 31 ec f3 10   .t.p...<....1...
+    0020 - 6b 44 91 bb 44 4e 70 40-2a ff 4c 3e 3d 49 ac 17   kD..DNp@*.L>=I..
+    0030 - c6 29 5f 92 d7 0b fb 10-21 22 3a 6d ce 7b 30 9f   .)_.....!":m.{0.
+    0040 - a5 82 b3 6c 4a 21 72 7f-c8 20 0c 6a 5d cc c2 4a   ...lJ!r.. .j]..J
+    0050 - 38 13 ae 4d 6a 08 5f 7d-9f df 6a 32 31 3c 63 1f   8..Mj._}..j21<c.
+    0060 - 4f bf 38 e7 e4 b2 6b d6-cf 9c 01 a3 3e 2a 9c e0   O.8...k.....>*..
+    0070 - a6 05 96 d1 ae ec f8 95-b7 8f 74 ec 46 90 03 90   ..........t.F...
+    0080 - 66 9c 72 d9 76 f8 b1 9e-b5 d3 d9 6f 33 11 44 fd   f.r.v......o3.D.
+    0090 - 4c d0 80 e4 cc 61 0c ca-80 c9 dc 45 9f 03 de 95   L....a.....E....
+
+    Start Time: 1632767468
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+    Extended master secret: yes
+---
+cluFn7wTiGryunymYOu4RcffSxQluehd
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+
+closed
+```
+We get a RSA private key. We need to use this to go to the next level.\
+Read about RSA encryption to understand this better. Resources:
+- https://en.m.wikipedia.org/wiki/RSA_(cryptosystem)
+- https://docs.rackspace.com/support/how-to/logging-in-with-an-ssh-private-key-on-linuxmac
+
+```
+
+```
