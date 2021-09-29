@@ -802,10 +802,6 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 ```
 
 ### Level 17 -> Level 18
-To go to the next level
-```
-ssh bandit17@localhost
-```
 There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new
 
 ```
@@ -820,6 +816,7 @@ To read about how to use `diff` command - (https://www.geeksforgeeks.org/diff-co
 
 ### Level 18 -> Level 19
 To go to the next level
+NOTE: We use `ssh -T` here as the .bashrc file has been modified by to log us out of ssh. We use -T parameter to disable pseudo -tty allocation, as this is making our session vulnerable. To read more about it, go to https://stackoverflow.com/questions/42505339/why-use-t-with-ssh
 ```
-ssh bandit18@localhost
+ssh -T bandit18@localhost
 ```
